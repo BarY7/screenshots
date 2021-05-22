@@ -46,6 +46,8 @@ class ImageProcessor {
     RunMode runMode,
     Archive archive,
   ) async {
+    printStatus(
+        '\n\n################## START PROCESSING IMAGES ###################');
     final Map screenProps = _screens.getScreen(deviceName);
     final screenshotsDir = '${_config.stagingDir}/$kTestScreenshotsDir';
     final screenshotPaths = fs.directory(screenshotsDir).listSync();
