@@ -20,7 +20,7 @@ ios:
     resources:
       statusbar: resources/ios/1242/statusbar_black.png
       statusbar black: resources/ios/1242/statusbar_black.png
-      statusbar white: resources/ios/1242/statusbar_black.png
+      statusbar white: resources/ios/1242/statusbar_white.png
       frame: resources/ios/phones/iPhone_7_Plus_Silver.png
     offset: -0-0
     devices:
