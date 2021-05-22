@@ -84,7 +84,9 @@ class ImageProcessor {
         status.stop();
       } else {
         final Map screenResources = screenProps['resources'];
+        await resources.unpackImages(screenResources, _config.stagingDir);
         printStatus('Warning: framing is not enabled');
+        printStatus('Adding status bar.');
         for (final screenshotPath in screenshotPaths) {
           // add status bar for each screenshot
           await overlay(
