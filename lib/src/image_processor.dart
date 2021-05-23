@@ -86,6 +86,9 @@ class ImageProcessor {
         status.stop();
       } else {
         final Map screenResources = screenProps['resources'];
+        final status = logger.startProgress(
+            'Processing screenshots (status bars) from test...',
+            timeout: Duration(minutes: 4));
         await resources.unpackImages(screenResources, _config.stagingDir);
         printStatus('Warning: framing is not enabled');
         printStatus('Adding status bar.');
@@ -100,6 +103,7 @@ class ImageProcessor {
                 _config.stagingDir, screenResources, screenshotPath.path);
           }
         }
+        status.stop();
       }
     }
 
