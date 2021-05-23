@@ -53,9 +53,10 @@ class ImageProcessor {
       printStatus('Warning: \'$deviceName\' images will not be processed');
     } else {
       // add frame if required
-      if (_config.isFrameRequired(deviceName, orientation)) {
+      if (true) {
         final Map screenResources = screenProps['resources'];
-        final status = logger.startProgress('Processing screenshots from test...',
+        final status = logger.startProgress(
+            'Processing screenshots from test...',
             timeout: Duration(minutes: 4));
 
         // unpack images for screen from package to local tmpDir area
@@ -75,9 +76,10 @@ class ImageProcessor {
             await append(
                 _config.stagingDir, screenResources, screenshotPath.path);
           }
-
-          await frame(_config.stagingDir, screenProps, screenshotPath.path,
-              deviceType, runMode);
+          if (_config.isFrameRequired(deviceName, orientation)) {
+            await frame(_config.stagingDir, screenProps, screenshotPath.path,
+                deviceType, runMode);
+          }
         }
         status.stop();
       } else {
@@ -87,7 +89,8 @@ class ImageProcessor {
 
     // move to final destination for upload to stores via fastlane
     if (screenshotPaths.isNotEmpty) {
-      final androidModelType = fastlane.getAndroidModelType(screenProps, deviceName);
+      final androidModelType =
+          fastlane.getAndroidModelType(screenProps, deviceName);
       String dstDir = fastlane.getDirPath(deviceType, locale, androidModelType);
       runMode == RunMode.recording
           ? dstDir = '${_config.recordingDir}/$dstDir'
@@ -98,7 +101,7 @@ class ImageProcessor {
       // prefix screenshots with name of device before moving
       // (useful for uploading to apple via fastlane)
       await utils.prefixFilesInDir(screenshotsDir,
-          '$deviceName-${orientation == null?kDefaultOrientation:utils.getStringFromEnum(orientation)}-');
+          '$deviceName-${orientation == null ? kDefaultOrientation : utils.getStringFromEnum(orientation)}-');
 
       printStatus('Moving screenshots to $dstDir');
       utils.moveFiles(screenshotsDir, dstDir);
